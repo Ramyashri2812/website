@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ramya Shri</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+<header>
+<a class="brand" href="index.html">Ramya Shri</a>
+<nav aria-label="Sections"><a href="about.html">About</a><a href="research.html">Research</a><a href="teaching.html">Teaching</a><a href="cv.html">CV</a></nav>
+</header>
+
+<section class="hero">
+<div class="kicker">// incoming packet from ramya</div>
+<h1 class="big">Ramya Shri</h1>
+<p class="lede">PhD scholar in Computer Science and Engineering. I study the network and transport layers of <mark>Solana</mark>: how they fail under attack, and how to harden them.</p>
+<p><a class="btn" href="cv.html">See my CV</a></p>
+</section>
+
+<section class="card" aria-label="Packet inspector">
+<div class="card-h"><span>ramya_shri.pcapng &middot; 4 packets</span></div>
+<div class="pkt-head"><span>No.</span><span>Time</span><span>Protocol</span><span>Info</span></div>
+<div id="list"></div>
+<noscript><div class="card-b"><a class="link" href="about.html">About</a><a class="link" href="research.html">Research</a><a class="link" href="teaching.html">Teaching</a><a class="link" href="cv.html">CV</a></div></noscript>
+<div class="panes">
+<div class="pane"><div class="pane-h">Packet details</div><div class="tree" id="tree"></div></div>
+<div class="pane hexp"><div class="pane-h">Packet bytes</div><div class="hex" id="hex" aria-hidden="true"></div></div>
+</div>
+<div class="status"><span id="frame"></span><span>Click a row to inspect it, or <a class="link" id="open" href="about.html">open the page</a></span></div>
+</section>
+
+<footer><span>// end of capture</span><span>Last updated October 2026</span></footer>
+</main>
+<script>
+const S=[
+{no:1,time:'0.000000',proto:'ABOUT',title:'About',href:'about.html',info:'Hello. PhD scholar in Computer Science, studying how Solana behaves under attack.',tree:[[0,'Person',''],[1,'Name:','Ramya Shri'],[1,'Role:','PhD scholar, Computer Science and Engineering'],[1,'Institute:','[Institute]'],[1,'Focus:','Network and transport-layer security of Solana'],[1,'Hands-on:','Runs Solana mainnet validators on AWS'],[0,'Contact',''],[1,'Email:','[you@institute.ac.in]'],[1,'GitHub:','[handle]']]},
+{no:2,time:'0.000412',proto:'RESEARCH',title:'Research',href:'research.html',info:'Transport-layer security of Solana: QUIC, TPU, Turbine, validator networking.',tree:[[0,'Research threads (5)',''],[1,'QUIC / TPU:','Rate limiting and connection handling at the validator edge'],[1,'Turbine / TVU:','How shreds are received, and what an attacker can poison'],[1,'P2P measurement:','Mapping the peer network across chains'],[1,'Post-quantum:','What a migration means for consensus and networking'],[1,'Anomaly detection:','Spotting attack conditions with ML']]},
+{no:3,time:'0.001087',proto:'TEACHING',title:'Teaching',href:'teaching.html',info:'Courses, TA work and mentoring [add yours].',tree:[[0,'Teaching',''],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[0,'Mentoring',''],[1,'[Student or project]','[Role, year]']]},
+{no:4,time:'0.001903',proto:'CV',title:'CV',href:'cv.html',info:'Education, experience, publications and skills. PDF available.',tree:[[0,'Curriculum vitae',''],[1,'Education:','PhD, Computer Science and Engineering, [Institute], [years]'],[1,'Experience:','Solana mainnet validator operations, [other roles]'],[1,'Publications:','[Count], listed on the Research page'],[1,'Download:','cv.pdf']]}
+];
+const $=id=>document.getElementById(id);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+function select(n){
+  const s=S[n];
+  [...$('list').children].forEach((b,j)=>b.setAttribute('aria-pressed',String(j===n)));
+  const tree=$('tree');tree.replaceChildren();
+  s.tree.forEach(([d,l,v])=>{
+    const r=el('div'),t=el('span');
+    r.style.paddingLeft=(16+d*22)+'px';
+    t.append(el('b','',l),' '+v);
+    r.append(el('span','c',d?'':'▾'),t);
+    tree.append(r);
+  });
+  const text=(s.title+' :: '+s.info).replace(/[^\x20-\x7E]/g,'.').slice(0,64);
+  const hex=$('hex');hex.replaceChildren();
+  for(let k=0;k<text.length;k+=8){
+    const r=el('div'),b=el('span','b'),a=el('span','a');
+    r.append(el('span','o',k.toString(16).padStart(4,'0')),b,a);
+    [...text.slice(k,k+8)].forEach((ch,j)=>{
+      const hl=k+j<s.title.length?'hl':'';
+      b.append(el('i',hl,ch.charCodeAt(0).toString(16).padStart(2,'0')));
+      a.append(el('i',hl,ch===' '?' ':ch));
+    });
+    hex.append(r);
+  }
+  $('frame').textContent='Frame '+s.no+' of '+S.length+': '+s.title;
+  const o=$('open');o.href=s.href;o.textContent='open the '+s.title+' page';
+}
+S.forEach((s,n)=>{
+  const b=el('button','pkt');
+  b.type='button';b.setAttribute('aria-pressed','false');
+  b.append(el('span','',s.no),el('span','',s.time),el('b','',s.proto),el('span','',s.info));
+  b.onclick=()=>select(n);
+  $('list').append(b);
+});
+select(1);
+</script>
+</body>
+</html>
