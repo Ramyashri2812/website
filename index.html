@@ -11,21 +11,21 @@
 <main class="wrap">
 <header>
 <a class="brand" href="index.html">Ramya Shri</a>
-<nav aria-label="Sections"><a href="about.html">About</a><a href="research.html">Research</a><a href="teaching.html">Teaching</a><a href="cv.html">CV</a></nav>
+<nav aria-label="Sections"><a href="about.html">About</a><a href="teaching.html">Teaching</a><a href="cv.html">CV</a></nav>
 </header>
 
 <section class="hero">
 <div class="kicker">// incoming packet from ramya</div>
 <h1 class="big">Ramya Shri</h1>
-<p class="lede">PhD scholar in Computer Science and Engineering. I study the network and transport layers of <mark>Solana</mark>: how they fail under attack, and how to harden them.</p>
+<p class="lede">PhD scholar in Computer Science and Engineering, working on network security in <mark>Solana</mark>.</p>
 <p><a class="btn" href="cv.html">See my CV</a></p>
 </section>
 
 <section class="card" aria-label="Packet inspector">
-<div class="card-h"><span>ramya_shri.pcapng &middot; 4 packets</span></div>
+<div class="card-h"><span>ramya_shri.pcapng &middot; 3 packets</span></div>
 <div class="pkt-head"><span>No.</span><span>Time</span><span>Protocol</span><span>Info</span></div>
 <div id="list"></div>
-<noscript><div class="card-b"><a class="link" href="about.html">About</a><a class="link" href="research.html">Research</a><a class="link" href="teaching.html">Teaching</a><a class="link" href="cv.html">CV</a></div></noscript>
+<noscript><div class="card-b"><a class="link" href="about.html">About</a><a class="link" href="teaching.html">Teaching</a><a class="link" href="cv.html">CV</a></div></noscript>
 <div class="panes">
 <div class="pane"><div class="pane-h">Packet details</div><div class="tree" id="tree"></div></div>
 <div class="pane hexp"><div class="pane-h">Packet bytes</div><div class="hex" id="hex" aria-hidden="true"></div></div>
@@ -37,10 +37,9 @@
 </main>
 <script>
 const S=[
-{no:1,time:'0.000000',proto:'ABOUT',title:'About',href:'about.html',info:'Hello. PhD scholar in Computer Science, studying how Solana behaves under attack.',tree:[[0,'Person',''],[1,'Name:','Ramya Shri'],[1,'Role:','PhD scholar, Computer Science and Engineering'],[1,'Institute:','[Institute]'],[1,'Focus:','Network and transport-layer security of Solana'],[1,'Hands-on:','Runs Solana mainnet validators on AWS'],[0,'Contact',''],[1,'Email:','[you@institute.ac.in]'],[1,'GitHub:','[handle]']]},
-{no:2,time:'0.000412',proto:'RESEARCH',title:'Research',href:'research.html',info:'Transport-layer security of Solana: QUIC, TPU, Turbine, validator networking.',tree:[[0,'Research threads (5)',''],[1,'QUIC / TPU:','Rate limiting and connection handling at the validator edge'],[1,'Turbine / TVU:','How shreds are received, and what an attacker can poison'],[1,'P2P measurement:','Mapping the peer network across chains'],[1,'Post-quantum:','What a migration means for consensus and networking'],[1,'Anomaly detection:','Spotting attack conditions with ML']]},
-{no:3,time:'0.001087',proto:'TEACHING',title:'Teaching',href:'teaching.html',info:'Courses, TA work and mentoring [add yours].',tree:[[0,'Teaching',''],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[0,'Mentoring',''],[1,'[Student or project]','[Role, year]']]},
-{no:4,time:'0.001903',proto:'CV',title:'CV',href:'cv.html',info:'Education, experience, publications and skills. PDF available.',tree:[[0,'Curriculum vitae',''],[1,'Education:','PhD, Computer Science and Engineering, [Institute], [years]'],[1,'Experience:','Solana mainnet validator operations, [other roles]'],[1,'Publications:','[Count], listed on the Research page'],[1,'Download:','cv.pdf']]}
+{no:1,time:'0.000000',proto:'ABOUT',title:'About',href:'about.html',info:'Hello. PhD scholar in Computer Science, working on network security in Solana.',tree:[[0,'Person',''],[1,'Name:','Ramya Shri'],[1,'Role:','PhD scholar, Computer Science and Engineering'],[1,'Institute:','IIT Bombay'],[1,'Advisor:','Prof. Vinay J. Ribeiro'],[1,'Focus:','Network security in Solana'],[1,'Interests:','Blockchain, network security, networks'],[0,'Contact',''],[1,'Email:','[you@institute.ac.in]'],[1,'GitHub:','[handle]']]},
+{no:2,time:'0.000412',proto:'TEACHING',title:'Teaching',href:'teaching.html',info:'Courses, TA work and mentoring [add yours].',tree:[[0,'Teaching',''],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[1,'[Course code]','[Course name], teaching assistant, [semester]'],[0,'Mentoring',''],[1,'[Student or project]','[Role, year]']]},
+{no:3,time:'0.001087',proto:'CV',title:'CV',href:'cv.html',info:'Education, experience and skills. PDF available.',tree:[[0,'Curriculum vitae',''],[1,'Education:','PhD, Computer Science and Engineering, IIT Bombay, [years]'],[1,'Experience:','Research intern, NetX Lab, IIT Hyderabad'],[1,'Download:','cv.pdf']]}
 ];
 const $=id=>document.getElementById(id);
 const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
@@ -77,7 +76,7 @@ S.forEach((s,n)=>{
   b.onclick=()=>select(n);
   $('list').append(b);
 });
-select(1);
+select(0);
 </script>
 </body>
 </html>
